@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Weather Checker</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontastic.css') }}">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font.css') }}">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.default.css') }}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  </head>
+  <body>
+    <div class="page">
+      <!-- Main Navbar-->
+      <header class="header">
+        <nav class="navbar">
+          <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+              <!-- Navbar Header-->
+              <div class="navbar-header">
+                <!-- Navbar Brand --><a href="#" class="navbar-brand d-none d-sm-inline-block">
+                  <div class="brand-text d-none d-lg-inline-block"><span>Weather </span><strong>Checker</strong></div>
+                <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+          </div>
+        </nav>
+      </header>
+      <div class="page-content d-flex align-items-stretch"> 
+        <!-- Side Navbar -->
+        <nav class="side-navbar">
+          <!-- Sidebar Header-->
+          <div class="sidebar-header d-flex align-items-center">
+            <div class="avatar"><img src="{{ url_for('static', filename='img/mockup7.jpg') }}" alt="..." class="img-fluid rounded-circle"></div>
+            <div class="title">
+              <h1 class="h4">Lv Zhengyang</h1>
+              <p>PB17061238</p>
+            </div>
+          </div>
+          <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+          <ul class="list-unstyled">
+                    <li><a href="{{ url_for('index') }}"> <i class="icon-home"></i>Home </a></li>
+                    <li class="active"><a href="#"> <i class="icon-grid"></i>About </a></li>
+          </ul>
+        </nav>
+        <div class="content-inner">
+          <!-- Page Header-->
+          <header class="page-header">
+            <div class="container-fluid">
+              <h1 class="no-margin-bottom">About</h1>
+            </div>
+          </header>
+          <!-- Dashboard Header Section    -->
+          <section class="dashboard-header">
+            <div class="container-fluid">
+              <div class="row">
+                <!-- Line Chart            -->
+                <div class="chart col-lg-12 col-12">
+                  <div>
+                      <h2>Introduction</h2>
+                      <p>
+                        Weather Checker is my homework to my Python Course Python与深度学习基础.<br>
+                        Print the city name in the Search box, and you can know the weather there. The page also provides you the weather forecast.<br>
+                        Thanks for using it, and I hope it will help you in your life.
+                      </p>
+                  </div>
+                  <div>
+                    <h2>How It Works</h2>
+                    <p>
+                      I used the Flask framwork to build the website. The data comes from a free API provided by OpenWeatherMap,so remember to connect to 
+                      the Internet while viewning it.<br>
+                      The webpage framework is Bootstrap, and the template comes from <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>.
+                    </p>
+                  </div>
+                  <div>
+                    <h2>How It Fits The Requrements</h2>
+                    <p>
+                      <ol>
+                        <li>The API from the Internet: <a href="http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=30b6b9e0b059743330d37865526ca4a6">
+                          Click here to view an example.</a></li>
+                        <li>I used a Python Class named NameForm to Build a sheetform in my page, which receive the city name.</li>
+                        <li>I used two Python files in my work. In main.py, I ran my program, which uses another file named NameForm.py containg a Class.</li>
+                        <li>My Code is not ugly.</li>
+                        <li>I display my results by HTML files.</li>
+                      </ol>
+                    </p>
+                  </div>
+                </div>
+                <div class="chart col-lg-4 col-12">
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          <!-- Page Footer-->
+          <footer class="main-footer">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-6">
+                  <p>Python Web Work &copy; 2019</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                  <p>Lv Zhengyang<br>lvzhengyang@mail.ustc.edu.cn</p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <!-- JavaScript files-->
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/popper.js/umd/popper.min.js') }}"> </script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
+    <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery-validation/jquery.validate.min.js') }}"></script>
+  </body>
+</html>

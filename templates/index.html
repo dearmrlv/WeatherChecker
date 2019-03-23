@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Weather Checker</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontastic.css') }}">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font.css') }}">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.default.css') }}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  </head>
+  <body>
+    <div class="page">
+      <!-- Main Navbar-->
+      <header class="header">
+        <nav class="navbar">
+          <!-- Search Box-->
+          <div class="search-box">
+            <button class="dismiss"><samll>Close</samll></button>
+              <div class="navbar-header">
+                {% import "bootstrap/wtf.html" as wtf %}
+                <!--<form id="searchForm" action="#" role="search">
+                  <input type="search" placeholder="Which city are you looking for..." class="form-control">
+                </form>-->
+                {{ wtf.quick_form(form) }}
+              </div>           
+          </div>
+          <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+              <!-- Navbar Header-->
+              <div class="navbar-header">
+                <!-- Navbar Brand --><a href="#" class="navbar-brand d-none d-sm-inline-block">
+                    <div class="brand-text d-none d-lg-inline-block"><br><span>Weather </span><strong>Checker</strong><br><br><br></div>
+                    <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+                 <!-- Navbar Menu -->
+                </div> 
+              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                <!-- Search-->
+                <li class="nav-item d-flex align-items-center"><a id="search" href="#"><h1>Search City</h1></a></li>
+              </ul>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <div class="page-content d-flex align-items-stretch"> 
+        <!-- Side Navbar -->
+        <nav class="side-navbar">
+          <!-- Sidebar Header-->
+          <div class="sidebar-header d-flex align-items-center">
+            <div class="avatar"><img src="{{ url_for('static', filename='img/mockup7.jpg') }}" alt="..." class="img-fluid rounded-circle"></div>
+            <div class="title">
+              <h1 class="h4">Lv Zhengyang</h1>
+              <p>PB17061238</p>
+            </div>
+          </div>
+          <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+          <ul class="list-unstyled">
+                    <li class="active"><a href="#"> <i class="icon-home"></i>Home </a></li>
+                    <li><a href="{{ url_for('about') }}"> <i class="icon-grid"></i>About </a></li>
+          </ul>
+        </nav>
+        <div class="content-inner">
+          <!-- Page Header-->
+          <header class="page-header">
+            <div class="container-fluid">
+              <h1 class="no-margin-bottom">City:  {{ name }}</h1>
+            </div>
+          </header>
+          <!-- Dashboard Counts Section-->
+          <section class="dashboard-counts no-padding-bottom">
+            <div class="container-fluid">
+              <div class="row bg-white has-shadow">
+                <!-- Item -->
+                <div class="col-xl-4 col-sm-6">
+                  <div class="item d-flex align-items-center">
+                    <div class="icon bg-violet"><i class="icon-user"></i></div>
+                    <div class="title"><span>Temperature</span>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
+                      </div>
+                    </div>
+                    <div class="number"><strong>{{ '%.2f' % (info_now['main']['temp']-273.15) }}℃</strong></div>
+                  </div>
+                </div>
+                <!-- Item -->
+                <div class="col-xl-4 col-sm-6">
+                  <div class="item d-flex align-items-center">
+                    <div class="icon bg-red"><i class="icon-padnote"></i></div>
+                    <div class="title"><span>Humidity</span>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
+                      </div>
+                    </div>
+                    <div class="number"><strong>{{ '%.2f' % (info_now['main']['humidity']) }}%</strong></div>
+                  </div>
+                </div>
+                <!-- Item -->
+                <div class="col-xl-4 col-sm-6">
+                  <div class="item d-flex align-items-center">
+                    <div class="icon bg-green"><i class="icon-bill"></i></div>
+                    <div class="title"><span>Weather</span>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 40%; height: 4px;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-green"></div>
+                      </div>
+                    </div>
+                    <div class="number"><h2><strong>{{ info_now['weather'][0]['description'] }}</strong></h2></div>
+                  </div>
+                </div>
+                <!-- Item -->
+                <!--<div class="col-xl-3 col-sm-6">
+                  <div class="item d-flex align-items-center">
+                    <div class="icon bg-orange"><i class="icon-check"></i></div>
+                    <div class="title"><span>Open<br>Cases</span>
+                      <div class="progress">
+                        <div role="progressbar" style="width: 50%; height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-orange"></div>
+                      </div>
+                    </div>
+                    <div class="number"><strong>50</strong></div>
+                  </div>
+                </div>-->
+              </div>
+            </div>
+          </section>
+          <!-- Dashboard Header Section    -->
+          <section class="dashboard-header">
+            <div class="container-fluid">
+              <div class="row">
+                <!-- Line Chart            -->
+                <div class="chart col-lg-8 col-12">
+                  <div class="line-chart bg-white d-flex align-items-center justify-content-center has-shadow">
+                    <canvas id="lineCahrt"></canvas>
+                  </div>
+                </div>
+                <div class="chart col-lg-4 col-12">
+                  <!-- Bar Chart   -->
+                  <div class="bar-chart has-shadow bg-white">
+                    <div class="title"><strong class="text-violet">Humidity</strong><br><small>Current Server Uptime</small></div>
+                    <canvas id="barChartHome"></canvas>
+                  </div>
+                  <!-- Numbers-->
+                  <div class="statistic d-flex align-items-center bg-white has-shadow">
+                    <div class="icon bg-green"><i class="fa fa-line-chart"></i></div>
+                    <div class="text"><strong>About {{ name }}</strong><br>
+                      <ul>
+                        <li><small>Latitude: {{ info['city']['coord']['lat'] }}</small></li>
+                        <li><small>Longitude: {{ info['city']['coord']['lon'] }}</small></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Projects Section-->
+          <section class="projects no-padding-top">
+            <div class="container-fluid">
+              <h1>Weather Forecast</h1>
+              <br>
+              <!-- Project-->
+              <div class="project">
+                <div class="row bg-white has-shadow">
+                  <div class="left-col col-lg-3 d-flex align-items-center justify-content-between">
+                    <div class="project-title d-flex align-items-center">
+                      <!--<div class="image has-shadow"><img src="img/project-1.jpg" alt="..." class="img-fluid"></div>-->
+                      <div class="text">
+                        <h3 class="h4">Tomorrow</h3><small>from OpenWeatherMap</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="left-col col-lg-3 d-flex align-items-center justify-content-between">
+                      <div class="project-title d-flex align-items-center">
+                        <!--<div class="image has-shadow"><img src="img/project-1.jpg" alt="..." class="img-fluid"></div>-->
+                        <div class="text">
+                          <h3 class="h4">Temperature </h3>
+                          <br>
+                          <h1>{{ '%.2f' % (info['list'][8]['main']['temp']-273.15) }}℃</h1>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="left-col col-lg-3 d-flex align-items-center justify-content-between">
+                      <div class="project-title d-flex align-items-center">
+                        <!--<div class="image has-shadow"><img src="img/project-1.jpg" alt="..." class="img-fluid"></div>-->
+                        <div class="text">
+                          <h3 class="h4">Humidity </h3>
+                          <br>
+                          <h1>{{ info['list'][8]['main']['humidity'] }}%</h1>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="left-col col-lg-3 d-flex align-items-center justify-content-between">
+                      <div class="project-title d-flex align-items-center">
+                        <!--<div class="image has-shadow"><img src="img/project-1.jpg" alt="..." class="img-fluid"></div>-->
+                        <div class="text">
+                          <h3 class="h4">Weather </h3>
+                          <br>
+                          <h1>{{ info['list'][8]['weather'][0]['description'] }}</h1>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Project-->
+              <div class="project">
+                  <div class="row bg-white has-shadow">
+                    <div class="left-col col-lg-3 d-flex align-items-center justify-content-between">
+                      <div class="project-title d-flex align-items-center">
+                        <!--<div class="image has-shadow"><img src="img/project-1.jpg" alt="..." class="img-fluid"></div>-->
+                        <div class="text">
+                          <h3 class="h4">The Day After Tomorrow</h3><small>from OpenWeatherMap</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="left-col col-lg-3 d-flex align-items-center justify-content-between">
+                        <div class="project-title d-flex align-items-center">
+                          <!--<div class="image has-shadow"><img src="img/project-1.jpg" alt="..." class="img-fluid"></div>-->
+                          <div class="text">
+                            <h3 class="h4">Temperature </h3>
+                            <br>
+                            <h1>{{ '%.2f' % (info['list'][16]['main']['temp']-273.15) }}℃</h1>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="left-col col-lg-3 d-flex align-items-center justify-content-between">
+                        <div class="project-title d-flex align-items-center">
+                          <!--<div class="image has-shadow"><img src="img/project-1.jpg" alt="..." class="img-fluid"></div>-->
+                          <div class="text">
+                            <h3 class="h4">Humidity </h3>
+                            <br>
+                            <h1>{{ info['list'][16]['main']['humidity'] }}%</h1>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="left-col col-lg-3 d-flex align-items-center justify-content-between">
+                        <div class="project-title d-flex align-items-center">
+                          <!--<div class="image has-shadow"><img src="img/project-1.jpg" alt="..." class="img-fluid"></div>-->
+                          <div class="text">
+                            <h3 class="h4">Weather </h3>
+                            <br>
+                            <h1>{{ info['list'][16]['weather'][0]['description'] }}</h1>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              <!-- Project-->
+              <div class="project">
+                  <div class="row bg-white has-shadow">
+                    <div class="left-col col-lg-3 d-flex align-items-center justify-content-between">
+                      <div class="project-title d-flex align-items-center">
+                        <!--<div class="image has-shadow"><img src="img/project-1.jpg" alt="..." class="img-fluid"></div>-->
+                        <div class="text">
+                          <h3 class="h4">Tomorrow</h3><small>from OpenWeatherMap</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="left-col col-lg-3 d-flex align-items-center justify-content-between">
+                        <div class="project-title d-flex align-items-center">
+                          <!--<div class="image has-shadow"><img src="img/project-1.jpg" alt="..." class="img-fluid"></div>-->
+                          <div class="text">
+                            <h3 class="h4">Temperature </h3>
+                            <br>
+                            <h1>{{ '%.2f' % (info['list'][24]['main']['temp']-273.15) }}℃</h1>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="left-col col-lg-3 d-flex align-items-center justify-content-between">
+                        <div class="project-title d-flex align-items-center">
+                          <!--<div class="image has-shadow"><img src="img/project-1.jpg" alt="..." class="img-fluid"></div>-->
+                          <div class="text">
+                            <h3 class="h4">Humidity </h3>
+                            <br>
+                            <h1>{{ info['list'][24]['main']['humidity'] }}%</h1>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="left-col col-lg-3 d-flex align-items-center justify-content-between">
+                        <div class="project-title d-flex align-items-center">
+                          <!--<div class="image has-shadow"><img src="img/project-1.jpg" alt="..." class="img-fluid"></div>-->
+                          <div class="text">
+                            <h3 class="h4">Weather </h3>
+                            <br>
+                            <h1>{{ info['list'][24]['weather'][0]['description'] }}</h1>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </section>
+          
+          
+          
+          <!-- Page Footer-->
+          <footer class="main-footer">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-6">
+                  <p>Python Web Work &copy; 2019</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                  <p>Lv Zhengyang<br>lvzhengyang@mail.ustc.edu.cn</p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <!-- JavaScript files-->
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/popper.js/umd/popper.min.js') }}"> </script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
+    <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery-validation/jquery.validate.min.js') }}"></script>
+    <!--<script src="{{ url_for('static', filename='js/charts-home.js') }}"></script>-->
+    <script type="text/javascript">
+    /*global $, document, Chart, LINECHART, data, options, window*/
+    $(document).ready(function () {
+
+
+    'use strict';
+
+    // ------------------------------------------------------- //
+    // Line Chart
+    // ------------------------------------------------------ //
+    var legendState = true;
+    if ($(window).outerWidth() < 576) {
+        legendState = false;
+    }
+
+    var LINECHART = $('#lineCahrt');
+    var myLineChart = new Chart(LINECHART, {
+        type: 'line',
+        options: {
+            scales: {
+                xAxes: [{
+                    display: true,
+                    gridLines: {
+                        display: false
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            },
+            legend: {
+                display: legendState
+            }
+        },
+        data: {
+            labels: ["{{ info['list'][0]['dt_txt'][11:16] }}", "{{ info['list'][1]['dt_txt'][11:16] }}", "{{ info['list'][2]['dt_txt'][11:16] }}", "{{ info['list'][3]['dt_txt'][11:16] }}", "{{ info['list'][4]['dt_txt'][11:16] }}", "{{ info['list'][5]['dt_txt'][11:16] }}", "{{ info['list'][6]['dt_txt'][11:16] }}", "{{ info['list'][7]['dt_txt'][11:16] }}"],
+            datasets: [
+                {
+                    label: "Highest Temperature",
+                    fill: true,
+                    lineTension: 0,
+                    backgroundColor: "transparent",
+                    borderColor: '#f15765',
+                    pointBorderColor: '#da4c59',
+                    pointHoverBackgroundColor: '#da4c59',
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    borderWidth: 1,
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBorderColor: "#fff",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 0,
+                    data: [{{ info['list'][0]['main']['temp_max']-273.15 }}, {{ info['list'][1]['main']['temp_max']-273.15 }}, {{ info['list'][2]['main']['temp_max']-273.15 }}, {{ info['list'][3]['main']['temp_max']-273.15 }}, {{ info['list'][4]['main']['temp_max']-273.15 }}, {{ info['list'][5]['main']['temp_max']-273.15 }}, {{ info['list'][6]['main']['temp_max']-273.15 }}, {{ info['list'][7]['main']['temp_max']-273.15 }}],
+                    spanGaps: false
+                },
+                {
+                    label: "Lowest Temperature",
+                    fill: true,
+                    lineTension: 0,
+                    backgroundColor: "transparent",
+                    borderColor: "#54e69d",
+                    pointHoverBackgroundColor: "#44c384",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    borderWidth: 1,
+                    pointBorderColor: "#44c384",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBorderColor: "#fff",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: [{{ info['list'][0]['main']['temp_min']-273.15 }}, {{ info['list'][1]['main']['temp_min']-273.15 }}, {{ info['list'][2]['main']['temp_min']-273.15 }}, {{ info['list'][3]['main']['temp_min']-273.15 }}, {{ info['list'][4]['main']['temp_min']-273.15 }}, {{ info['list'][5]['main']['temp_min']-273.15 }}, {{ info['list'][6]['main']['temp_min']-273.15 }}, {{ info['list'][7]['main']['temp_min']-273.15 }}],
+                    spanGaps: false
+                }
+            ]
+        }
+    });
+
+
+
+    // ------------------------------------------------------- //
+    // Line Chart 1
+    // ------------------------------------------------------ //
+    var LINECHART1 = $('#lineChart1');
+    var myLineChart = new Chart(LINECHART1, {
+        type: 'line',
+        options: {
+            scales: {
+                xAxes: [{
+                    display: true,
+                    gridLines: {
+                        display: false
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        max: 40,
+                        min: 0,
+                        stepSize: 0.5
+                    },
+                    display: false,
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            },
+            legend: {
+                display: false
+            }
+        },
+        data: {
+            labels: ["A", "B", "C", "D", "E", "F", "G"],
+            datasets: [
+                {
+                    label: "Total Overdue",
+                    fill: true,
+                    lineTension: 0,
+                    backgroundColor: "transparent",
+                    borderColor: '#6ccef0',
+                    pointBorderColor: '#59c2e6',
+                    pointHoverBackgroundColor: '#59c2e6',
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    borderWidth: 3,
+                    pointBackgroundColor: "#59c2e6",
+                    pointBorderWidth: 0,
+                    pointHoverRadius: 4,
+                    pointHoverBorderColor: "#fff",
+                    pointHoverBorderWidth: 0,
+                    pointRadius: 4,
+                    pointHitRadius: 0,
+                    data: [20, 28, 30, 22, 24, 10, 7],
+                    spanGaps: false
+                }
+            ]
+        }
+    });
+
+
+
+    // ------------------------------------------------------- //
+    // Pie Chart
+    // ------------------------------------------------------ //
+    var PIECHART = $('#pieChart');
+    var myPieChart = new Chart(PIECHART, {
+        type: 'doughnut',
+        options: {
+            cutoutPercentage: 80,
+            legend: {
+                display: false
+            }
+        },
+        data: {
+            labels: [
+                "First",
+                "Second",
+                "Third",
+                "Fourth"
+            ],
+            datasets: [
+                {
+                    data: [300, 50, 100, 60],
+                    borderWidth: [0, 0, 0, 0],
+                    backgroundColor: [
+                        '#44b2d7',
+                        "#59c2e6",
+                        "#71d1f2",
+                        "#96e5ff"
+                    ],
+                    hoverBackgroundColor: [
+                        '#44b2d7',
+                        "#59c2e6",
+                        "#71d1f2",
+                        "#96e5ff"
+                    ]
+                }]
+        }
+    });
+
+
+    // ------------------------------------------------------- //
+    // Bar Chart
+    // ------------------------------------------------------ //
+    var BARCHARTHOME = $('#barChartHome');
+    var barChartHome = new Chart(BARCHARTHOME, {
+        type: 'bar',
+        options:
+        {
+            scales:
+            {
+                xAxes: [{
+                    display: false
+                }],
+                yAxes: [{
+                    display: false
+                }],
+            },
+            legend: {
+                display: false
+            }
+        },
+        data: {
+            labels: ["{{ info['list'][0]['dt_txt'][11:16] }}", "{{ info['list'][1]['dt_txt'][11:16] }}", "{{ info['list'][2]['dt_txt'][11:16] }}", "{{ info['list'][3]['dt_txt'][11:16] }}", "{{ info['list'][4]['dt_txt'][11:16] }}", "{{ info['list'][5]['dt_txt'][11:16] }}", "{{ info['list'][6]['dt_txt'][11:16] }}", "{{ info['list'][7]['dt_txt'][11:16] }}"],
+            datasets: [
+                {
+                    label: "Data Set 1",
+                    backgroundColor: [
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)'
+                    ],
+                    borderColor: [
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)',
+                        'rgb(121, 106, 238)'
+                    ],
+                    borderWidth: 1,
+                    data: [{{ info['list'][0]['main']['humidity'] }}, {{ info['list'][1]['main']['humidity'] }}, {{ info['list'][2]['main']['humidity'] }}, {{ info['list'][3]['main']['humidity'] }}, {{ info['list'][4]['main']['humidity'] }}, {{ info['list'][5]['main']['humidity'] }}, {{ info['list'][6]['main']['humidity'] }}, {{ info['list'][7]['main']['humidity'] }}]
+                }
+            ]
+        }
+    });
+
+    });
+
+    </script>
+    <!-- Main File-->
+    <script src="{{ url_for('static', filename='js/front.js') }}"></script>
+  </body>
+</html>
